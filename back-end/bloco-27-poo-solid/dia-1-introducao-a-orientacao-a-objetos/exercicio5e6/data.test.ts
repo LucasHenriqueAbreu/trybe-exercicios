@@ -29,18 +29,22 @@ describe('Testes para class Data', () => {
             expect(data3.compare(data5)).toEqual(-1);
         });
 
-        it('deve retornar -1 pois a data6(parâmetro) é posterior a data3', () => {
-            expect(data3.compare(data6)).toEqual(-1);
+        it('deve retornar 1 pois a data3 é posterior a data6(parâmemtro)', () => {
+            expect(data3.compare(data6)).toEqual(1);
         });
+
         it('deve retornar -1 pois a data7(parâmetro) é posterior a data3', () => {
             expect(data3.compare(data7)).toEqual(-1);
         });
+
         it('deve retornar 1 pois a data7 é posterior a data3(parâmetro)', () => {
             expect(data7.compare(data3)).toEqual(1);
         });
+
         it('deve retornar -1 pois a data8(parâmetro) é posterior a data3', () => {
             expect(data3.compare(data8)).toEqual(-1);
         });
+
         it('deve retornar -1 pois a data9(parâmetro) é posterior a data8', () => {
             expect(data8.compare(data9)).toEqual(-1);
         });

@@ -98,13 +98,23 @@ export class Data {
             return 0;
         }
 
-        if ((this._dia > data.dia && this._mes >= data.mes && this._ano >= data.ano) ||
-            (this._mes > data.mes && this._ano >= data.ano) ||
-            (this._ano > data.ano)) {
+        console.log('Data da classe', this.toString());
+        console.log('Data parâmetro', data.toString());
+        console.log('Primeira condição:', (this._dia < data.dia && this._mes <= data.mes && this._ano <= data.ano));
+        console.log('Segunda condição:', (this._mes < data.mes && this._ano <= data.ano));
+        console.log('Terceira condição:', (this._ano < data.ano));
+
+        if ((this._dia < data.dia && this._mes <= data.mes && this._ano <= data.ano) ||
+            (this._mes < data.mes && this._ano <= data.ano) ||
+            (this._ano < data.ano)) {
             return -1;
         }
 
         return 1;
+    }
+
+    public toString(): string {
+        return `${this._dia}/${this.mes}/${this._ano}`;
     }
 }
 
