@@ -54,28 +54,24 @@ describe('Testes para class Data', () => {
         const data1 = new Data(14, Month.SETEMBRO, 1992);
         const data2 = new Data(1, Month.DEZEMBRO, 1992);
 
-        it('Formato "aaaa" deve retornar o ano com quatro dígitos', () => {
-            expect(data1.format('aaaa')).toEqual('1992');
+        it('"dd/mm/aaaa" deve retornar "01/01/1900"', () => {
+            expect(data1.format('dd/mm/aaaa')).toEqual('14/09/1992');
+            expect(data2.format('dd/mm/aaaa')).toEqual('01/12/1992');
         });
 
-        it('Formato "aa" deve retornar o ano com dois dígitos', () => {
-            expect(data1.format('aa')).toEqual('92');
+        it('"aaaa-mm-dd" deve retornar "1900-01-01"', () => {
+            expect(data1.format('aaaa-mm-dd')).toEqual('1992-09-14');
+            expect(data2.format('aaaa-mm-dd')).toEqual('1992-12-01');
         });
 
-        it('Formato "mm" deve retornar o mês com 2 dígitos', () => {
-            expect(data1.format('mm')).toEqual('09');
-            expect(data2.format('mm')).toEqual('12');
+        it('"dd de M de aa" deve retornar "01 de janeiro de 90"', () => {
+            expect(data1.format('dd de M de aa')).toEqual('14 de Setembro de 92');
+            expect(data2.format('dd de M de aa')).toEqual('01 de Dezembro de 92');
         });
 
-        it('Formato "M" deve retornar o mês por extenso', () => {
-            expect(data1.format('M')).toEqual('Setembro');
-            expect(data2.format('M')).toEqual('Dezembro');
+        it('"dd, M de aaaa" deve retornar "01, janeiro de 1990"', () => {
+            expect(data1.format('dd, M de aaaa')).toEqual('14, Setembro de 1992');
+            expect(data2.format('dd, M de aaaa')).toEqual('01, Dezembro de 1992');
         });
-
-        it('Formato "dd" deve retornar o dia com 2 dígitos', () => {
-            expect(data1.format('dd')).toEqual('14');
-            expect(data2.format('dd')).toEqual('01');
-        });
-
     });
 });

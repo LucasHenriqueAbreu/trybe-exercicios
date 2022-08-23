@@ -17,6 +17,7 @@ export class Data {
     private _day!: number;
     private _month!: Month;
     private _year!: number;
+    private static readonly FORMATS: string[] = ['aaaa', 'aa', 'mm', 'M', 'dd'];
 
     constructor(day: number, month: Month, year: number) {
         try {
@@ -109,21 +110,46 @@ export class Data {
     }
 
     public format(format: string): string {
+        let result = format;
+        for (let i = 0; i < Data.FORMATS.length; i++) {
+            const format = Data.FORMATS[i];
+            result = result.replace(format, this._replaceFormatByValue(format));
+        }
+        return result;
+    }
+
+    private _replaceFormatByValue(format: string): string {
+        if (format === 'aaaa') {
+            return this._year.toString();
+        }
         if (format === 'aa') {
-            const year = this._year.toString();
-            return year.slice(year.length -2, year.length);
+            return this._getYearWithTwoChars();
         }
         if (format === 'mm') {
-            const realIndexMonth = this._month +1;
-            return realIndexMonth < 10 ? `0${realIndexMonth}`: realIndexMonth.toString(); 
+            return this._getMonthWithTwoChars();
         }
         if (format === 'M') {
             return this.getMonthName();
         }
         if (format === 'dd') {
-            return this._day < 10 ? `0${this._day}`: this._day.toString(); 
+            return this._getDayWithTwoChars();
         }
-        return this._year.toString();
+
+        throw new Error('Formato inválido.');
+    }
+
+    private _getMonthWithTwoChars(): string {
+        const realIndexMonth = this._month + 1;
+        return realIndexMonth < 10 ? `0${realIndexMonth}` : realIndexMonth.toString();
+    }
+
+    private _getYearWithTwoChars(): string {
+        const year = this._year.toString();
+        return year.slice(year.length - 2, year.length);
+    }
+
+    private _getDayWithTwoChars(): string {
+        return this._day < 10 ? `0${this._day}` : this._day.toString();
     }
 }
 
