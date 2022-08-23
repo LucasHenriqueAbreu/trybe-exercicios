@@ -1,4 +1,4 @@
-export enum Mes {
+export enum Month {
     JANEIRO,
     FEVEREIRO,
     MARCO,
@@ -14,107 +14,97 @@ export enum Mes {
 }
 
 export class Data {
-    private _dia!: number;
-    private _mes!: Mes;
-    private _ano!: number;
+    private _day!: number;
+    private _month!: Month;
+    private _year!: number;
 
-    constructor(dia: number, mes: Mes, ano: number) {
+    constructor(day: number, month: Month, year: number) {
         try {
-            this._dia = dia;
-            this._mes = mes;
-            this._ano = ano;
+            this._day = day;
+            this._month = month;
+            this._year = year;
         } catch (error) {
-            this._dia = 1;
-            this._mes = Mes.JANEIRO;
-            this._ano = 1900;
+            this._day = 1;
+            this._month = Month.JANEIRO;
+            this._year = 1900;
         }
     }
 
-    get dia() { return this._dia };
-    get mes() { return this._mes };
-    get ano() { return this._ano };
+    get day() { return this._day };
+    get month() { return this._month };
+    get year() { return this._year };
 
-    set dia(newValue: number) {
+    set day(newValue: number) {
         if (newValue > 31) {
-            throw new Error('Um mês possui no máximo 31 dias');
+            throw new Error('Um mês possui no máximo 31 days');
         }
-        this._dia = newValue;
+        this._day = newValue;
     }
 
-    set mes(newValue: Mes) {
+    set month(newValue: Month) {
         if (newValue > 11) {
-            throw new Error('Um ano possui no máximo 12 meses');
+            throw new Error('Um year possui no máximo 12 monthes');
         }
-        this._mes = newValue;
+        this._month = newValue;
     }
 
-    set ano(newValue: number) {
-        this._ano = newValue;
+    set year(newValue: number) {
+        this._year = newValue;
     }
 
     public getMonthName(): string {
-        if (this._mes === Mes.JANEIRO) {
+        if (this._month === Month.JANEIRO) {
             return 'Janeiro';
         }
-        if (this._mes === Mes.FEVEREIRO) {
+        if (this._month === Month.FEVEREIRO) {
             return 'Fevereiro';
         }
-        if (this._mes === Mes.MARCO) {
+        if (this._month === Month.MARCO) {
             return 'Marco';
         }
-        if (this._mes === Mes.ABRIL) {
+        if (this._month === Month.ABRIL) {
             return 'Abril';
         }
-        if (this._mes === Mes.MAIO) {
+        if (this._month === Month.MAIO) {
             return 'Maio';
         }
-        if (this._mes === Mes.JUNHO) {
+        if (this._month === Month.JUNHO) {
             return 'Junho';
         }
-        if (this._mes === Mes.JULHO) {
+        if (this._month === Month.JULHO) {
             return 'Julho';
         }
-        if (this._mes === Mes.AGOSTO) {
+        if (this._month === Month.AGOSTO) {
             return 'Agosto';
         }
-        if (this._mes === Mes.SETEMBRO) {
+        if (this._month === Month.SETEMBRO) {
             return 'Setembro';
         }
-        if (this._mes === Mes.OUTUBRO) {
+        if (this._month === Month.OUTUBRO) {
             return 'Outubro';
         }
-        if (this._mes === Mes.NOVEMBRO) {
+        if (this._month === Month.NOVEMBRO) {
             return 'Novembro';
         }
         return 'Dezembro';
     }
 
     public isLeapYear(): boolean {
-        return this._ano % 4 === 0;
+        return this._year % 4 === 0;
     }
 
     public compare(data: Data): number {
-        if (this._dia === data.dia && this._mes === data.mes && this._ano === data.ano) {
-            return 0;
-        }
-
-        console.log('Data da classe', this.toString());
-        console.log('Data parâmetro', data.toString());
-        console.log('Primeira condição:', (this._dia < data.dia && this._mes <= data.mes && this._ano <= data.ano));
-        console.log('Segunda condição:', (this._mes < data.mes && this._ano <= data.ano));
-        console.log('Terceira condição:', (this._ano < data.ano));
-
-        if ((this._dia < data.dia && this._mes <= data.mes && this._ano <= data.ano) ||
-            (this._mes < data.mes && this._ano <= data.ano) ||
-            (this._ano < data.ano)) {
-            return -1;
-        }
-
-        return 1;
+        return this.isEquals(data) ? 0 : (this.isMoreThen(data) ? -1 : 1);
     }
 
-    public toString(): string {
-        return `${this._dia}/${this.mes}/${this._ano}`;
+    private isEquals(data: Data): boolean {
+        return this._day === data.day && this._month === data.month && this._year === data.year;
+    }
+
+    private isMoreThen(data: Data): boolean {
+        return (this._day < data.day && this._month <= data.month && this._year <= data.year) ||
+            (this._month < data.month && this._year <= data.year) ||
+            (this._year < data.year);
     }
 }
 
