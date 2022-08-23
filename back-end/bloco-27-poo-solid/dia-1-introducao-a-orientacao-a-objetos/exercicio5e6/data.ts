@@ -34,6 +34,7 @@ export class Data {
     get month() { return this._month };
     get year() { return this._year };
 
+    // TODO: sets tem a mesma regra, pdem ter o mesmo método.
     set day(newValue: number) {
         if (newValue > 31) {
             throw new Error('Um mês possui no máximo 31 days');
@@ -94,17 +95,35 @@ export class Data {
     }
 
     public compare(data: Data): number {
-        return this.isEquals(data) ? 0 : (this.isMoreThen(data) ? -1 : 1);
+        return this._isEquals(data) ? 0 : (this._isMoreThen(data) ? -1 : 1);
     }
 
-    private isEquals(data: Data): boolean {
+    private _isEquals(data: Data): boolean {
         return this._day === data.day && this._month === data.month && this._year === data.year;
     }
 
-    private isMoreThen(data: Data): boolean {
+    private _isMoreThen(data: Data): boolean {
         return (this._day < data.day && this._month <= data.month && this._year <= data.year) ||
             (this._month < data.month && this._year <= data.year) ||
             (this._year < data.year);
+    }
+
+    public format(format: string): string {
+        if (format === 'aa') {
+            const year = this._year.toString();
+            return year.slice(year.length -2, year.length);
+        }
+        if (format === 'mm') {
+            const realIndexMonth = this._month +1;
+            return realIndexMonth < 10 ? `0${realIndexMonth}`: realIndexMonth.toString(); 
+        }
+        if (format === 'M') {
+            return this.getMonthName();
+        }
+        if (format === 'dd') {
+            return this._day < 10 ? `0${this._day}`: this._day.toString(); 
+        }
+        return this._year.toString();
     }
 }
 

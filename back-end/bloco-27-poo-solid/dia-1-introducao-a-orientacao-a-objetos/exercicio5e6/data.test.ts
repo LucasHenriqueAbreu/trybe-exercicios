@@ -51,6 +51,31 @@ describe('Testes para class Data', () => {
     });
 
     describe('Teste para método format: recebe como parâmetro um formato de dia mês e ano e retorna a data formatada.', () => {
+        const data1 = new Data(14, Month.SETEMBRO, 1992);
+        const data2 = new Data(1, Month.DEZEMBRO, 1992);
+
+        it('Formato "aaaa" deve retornar o ano com quatro dígitos', () => {
+            expect(data1.format('aaaa')).toEqual('1992');
+        });
+
+        it('Formato "aa" deve retornar o ano com dois dígitos', () => {
+            expect(data1.format('aa')).toEqual('92');
+        });
+
+        it('Formato "mm" deve retornar o mês com 2 dígitos', () => {
+            expect(data1.format('mm')).toEqual('09');
+            expect(data2.format('mm')).toEqual('12');
+        });
+
+        it('Formato "M" deve retornar o mês por extenso', () => {
+            expect(data1.format('M')).toEqual('Setembro');
+            expect(data2.format('M')).toEqual('Dezembro');
+        });
+
+        it('Formato "dd" deve retornar o dia com 2 dígitos', () => {
+            expect(data1.format('dd')).toEqual('14');
+            expect(data2.format('dd')).toEqual('01');
+        });
 
     });
 });
