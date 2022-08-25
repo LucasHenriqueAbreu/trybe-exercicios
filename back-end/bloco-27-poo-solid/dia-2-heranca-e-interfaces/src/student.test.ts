@@ -27,8 +27,8 @@ describe('Testes para classe Student', () => {
 
     it('Deve criar uma data de matrícula automáticamente', () => {
         const student = new Student('Lucas H. de Abreu', new Date(1992, 9, 14));
-        expect(student.generateEnrollment()).toBeTruthy();
-        expect(student.generateEnrollment()).toBeInstanceOf(Date);
+        expect(student.enrollment).toBeTruthy();
+        expect(student.enrollment.length).toEqual(16);
     });
 
     it('Deve somar as notas de um estudante', () => {
@@ -43,5 +43,15 @@ describe('Testes para classe Student', () => {
         student.examsGrades = [10, 10, 10];
         student.worksGrades = [10, 10];
         expect(student.sumAverageGrade()).toEqual(10);
+    });
+
+    it('Não deve ser possível cadastrar mais de 4 notas para provas', () => {
+        const student = new Student('Lucas H. de Abreu', new Date(1992, 9, 14));
+        expect(() => student.examsGrades = [10, 10, 10, 10, 10]).toThrow('A pessoa estudante deve possuir no máximo 4 notas de provas');
+    });
+
+    it('Não deve ser possível cadastrar mais de 2 notas para trabalhos', () => {
+        const student = new Student('Lucas H. de Abreu', new Date(1992, 9, 14));
+        expect(() => student.worksGrades = [10, 10, 10]).toThrow('A pessoa estudante deve possuir no máximo 2 notas de trabalhos');
     });
 })
