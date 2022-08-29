@@ -21,6 +21,6 @@ describe('Teste para PlantsDatasource', () => {
     it('Deve criar uma nova planta em um arquivo json', async () => {
         const newPlant = await datasource.create(plant);
         expect(newPlant).toBeInstanceOf(Plant);
-        expect(newPlant.id).toBeTruthy();
+        expect(newPlant.getId).toBeTruthy();
     });
 });

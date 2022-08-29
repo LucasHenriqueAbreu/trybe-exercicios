@@ -8,9 +8,7 @@ import DatasourceInterface from '../datasource.interface';
 
 class FilePlantsDatasource implements DatasourceInterface {
     private readonly plantsFile = 'plantsData.json';
-    private readonly opsFile = 'opsInfo.json';
     private readonly plantsFileTest = 'plantsData-test.json';
-    private readonly opsFileTest = 'opsInfo-test.json';
     private onTest: boolean; // Procuar uma forma melhor
 
     constructor(onTest = false) {
@@ -24,6 +22,7 @@ class FilePlantsDatasource implements DatasourceInterface {
     public async create(newPlant: Plant): Promise<Plant> {
         const plantsRaw = await fs.readFile(this.getPlantsFile(), { encoding: 'utf-8' });
         const plants: Plant[] = JSON.parse(plantsRaw);
+        newPlant.setId(plants.length + 1);
         plants.push(newPlant);
         await fs.writeFile(this.plantsFile, JSON.stringify(plants));
         return newPlant;
