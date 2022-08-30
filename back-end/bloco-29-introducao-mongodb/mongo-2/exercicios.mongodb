@@ -1,0 +1,75 @@
+// 🚀 Exercício 1: Inspecione um documento para que você se familiarize com a estrutura. Entenda os atributos e os níveis existentes.
+use('exercicios2mongo');
+db.heros.find();
+
+// 🚀 Exercício 2: Selecione todos os super-heróis com menos de 1.80m de altura. Lembre-se de que essa informação está em centímetros.
+use('exercicios2mongo');
+db.heros.find({'aspects.height': {$lt: 180}});
+
+// 🚀 Exercício 3: Retorne o total de super-heróis menores que 1.80m.
+use('exercicios2mongo');
+db.heros.count({'aspects.height': {$lt: 180}});
+
+// Exercício 4: Retorne o total de super-heróis com até 1.80m.
+use('exercicios2mongo');
+db.heros.find({'aspects.height': {$lte: 180}});
+
+// Exercício 5: Selecione um super-herói com 2.00m ou mais de altura.
+use('exercicios2mongo');
+db.heros.findOne({'aspects.height': {$gte: 200}});
+
+// Exercício 6: Retorne o total de super-heróis com 2.00m ou mais.
+use('exercicios2mongo');
+db.heros.count({'aspects.height': {$gte: 200}});
+
+// Exercício 7: Selecione todos os super-heróis que têm olhos verdes.
+use('exercicios2mongo');
+db.heros.find({'aspects.eyeColor': {$eq: 'green'}});
+
+// Exercício 8: Retorne o total de super-heróis com olhos azuis.
+use('exercicios2mongo');
+db.heros.count({'aspects.eyeColor': {$eq: 'blue'}});
+
+// 🚀 Exercício 9: Utilizando o operador $in, selecione todos os super-heróis com cabelos pretos ou carecas ("No Hair").
+use('exercicios2mongo');
+db.heros.find({'aspects.hairColor': {$in: ['Black', 'No Hair']}});
+
+// Exercício 10: Retorne o total de super-heróis com cabelos pretos ou carecas ("No Hair").
+use('exercicios2mongo');
+db.heros.count({'aspects.hairColor': {$in: ['Black', 'No Hair']}});
+
+// Exercício 11: Retorne o total de super-heróis que não tenham cabelos pretos ou não sejam carecas.
+use('exercicios2mongo');
+db.heros.count({'aspects.hairColor': {$nin: ['Black', 'No Hair']}});
+
+// 🚀 Exercício 12: Utilizando o operador $not, retorne o total de super-heróis que não tenham mais de 1.80m de altura.
+use('exercicios2mongo');
+db.heros.count({'aspects.height': {$not: {$gt: 180}}});
+
+// Exercício 13: Selecione todos os super-heróis que não sejam humanos nem sejam maiores do que 1.80m.
+use('exercicios2mongo');
+db.heros.find({race: {$ne: 'Human'}, 'aspects.height': { $lte: 180}});
+
+// Exercício 14: Selecione todos os super-heróis com 1.80m ou 2.00m de altura e que sejam publicados pela Marvel Comics.
+use('exercicios2mongo');
+db.heros.find({$or: [{'aspects.height': 180}, {'aspects.height': 200}], publisher: 'Marvel Comics'});
+
+// Exercício 15: Selecione todos os super-heróis que pesem entre 80kg e 100kg, sejam Humanos ou Mutantes e não sejam publicados pela DC Comics.
+use('exercicios2mongo');
+db.heros.find({'aspects.weight': {$gte: 80.0, $lt: 100.0}, $or: [{race: 'Human', race: 'Mutant'}], publisher: {$ne: 'DC Comics'}});
+
+// Exercício 16: Retorne o total de documentos que não contêm o campo race.
+use('exercicios2mongo');
+db.heros.find({race: {$exists: false}});
+
+// Exercício 17: Retorne o total de documentos que contêm o campo hairColor.
+use('exercicios2mongo');
+db.heros.find({'aspects.hairColor': {$exists: true}});
+
+// Exercício 18: Remova apenas um documento publicado pela Sony Pictures.
+use('exercicios2mongo');
+db.heros.deleteOne({publisher: 'Sony Pictures'});
+
+// 🚀 Exercício 19: Remova todos os documentos publicados pelo George Lucas.
+use('exercicios2mongo');
+db.heros.deleteMany({publisher: 'George Lucas'});
